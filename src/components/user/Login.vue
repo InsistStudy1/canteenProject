@@ -159,10 +159,6 @@
           box-sizing: border-box;
           border: none;
         }
-        ::-webkit-input-placeholder{ color: #ccc; }     /* 使用webkit内核的浏览器 */
-        :-moz-placeholder{ color: #ccc; }                   /* Firefox版本4-18 */
-        ::-moz-placeholder{ color: #3ccc }                    /* Firefox版本19+ */
-        :-ms-input-placeholder{ color: #3ccc }             /* IE浏览器 */
       }
       button {
         width: 100%;
@@ -171,6 +167,7 @@
         background-color: #fcb84f;
         border-radius: 1.467rem;
         color: #fff;
+        font-size: 1.067rem;
         &.register_btn {
           margin-top: 1.5rem;
           background-color: #fff;

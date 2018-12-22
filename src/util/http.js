@@ -7,10 +7,10 @@ axios.defaults.timeout = 5000;
 // http request 拦截器
 axios.interceptors.request.use(
     config => {
-        MintUi.Indicator.open({//打开loading
-            text: '加载中...',
-            spinnerType: 'fading-circle'
-        });
+        // MintUi.Indicator.open({//打开loading
+        //     text: '加载中...',
+        //     spinnerType: 'fading-circle'
+        // });
         config.headers = {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -25,7 +25,7 @@ axios.interceptors.request.use(
 // http response 拦截器
 axios.interceptors.response.use(
     response => {
-        MintUi.Indicator.close();//关闭loading
+        // MintUi.Indicator.close();//关闭loading
         let res = response.data;
         let status = res.status;
         switch (status) {
@@ -50,7 +50,7 @@ axios.interceptors.response.use(
         }
     },
     error => {
-        MintUi.Indicator.close();//关闭loading
+        // MintUi.Indicator.close();//关闭loading
         mui.toast('未连接到服务器');
         return Promise.reject(error.response)
     }
@@ -88,7 +88,7 @@ export function post(url, data = {}) {
             resolve(response)
         }).then(error => {
             reject(error);
-        })
+        }).catch(new Function());
     })
 }
 
@@ -105,7 +105,7 @@ export function patch(url, data = {}) {
             resolve(response.data)
         }).then(error => {
             reject(error);
-        })
+        }).catch(new Function());
     })
 }
 
@@ -121,6 +121,6 @@ export function put(url, data = {}) {
             resolve(response.data)
         }).then(error => {
             reject(error);
-        })
+        }).catch(new Function());
     })
 }

@@ -71,17 +71,17 @@
                 //         canteenType: '一饭二楼',
                 //         data: [
                 //             {
-                //                 img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2710064199,2180614330&fm=27&gp=0.jpg',
-                //                 food_name: '茄瓜煲仔菜',
-                //                 food_price: '8.5',
-                //                 food_number: 1,
+                //                 images: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2710064199,2180614330&fm=27&gp=0.jpg',
+                //                 goods_name: '茄瓜煲仔菜',
+                //                 price: '8.5',
+                //                 goods_num: 1,
                 //                 checked: true
                 //             },
                 //             {
-                //                 img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2710064199,2180614330&fm=27&gp=0.jpg',
-                //                 food_name: '茄瓜煲仔菜',
-                //                 food_price: '8.5',
-                //                 food_number: 1,
+                //                 images: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2710064199,2180614330&fm=27&gp=0.jpg',
+                //                 goods_name: '茄瓜煲仔菜',
+                //                 price: '8.5',
+                //                 goods_num: 1,
                 //                 checked: false
                 //             }
                 //         ]
@@ -90,17 +90,17 @@
                 //         canteenType: '一饭一楼',
                 //         data: [
                 //             {
-                //                 img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2710064199,2180614330&fm=27&gp=0.jpg',
-                //                 food_name: '茄瓜煲仔菜',
-                //                 food_price: '8.5',
-                //                 food_number: 1,
+                //                 images: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2710064199,2180614330&fm=27&gp=0.jpg',
+                //                 goods_name: '茄瓜煲仔菜',
+                //                 price: '8.5',
+                //                 goods_num: 1,
                 //                 checked: false
                 //             },
                 //             {
-                //                 img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2710064199,2180614330&fm=27&gp=0.jpg',
-                //                 food_name: '茄瓜煲仔菜',
-                //                 food_price: '8.5',
-                //                 food_number: 1,
+                //                 images: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2710064199,2180614330&fm=27&gp=0.jpg',
+                //                 goods_name: '茄瓜煲仔菜',
+                //                 price: '8.5',
+                //                 goods_num: 1,
                 //                 checked: false
                 //             }
                 //         ]
@@ -261,8 +261,13 @@
 </script>
 
 <style scoped lang="less">
-  .type_title input[type=checkbox] {
-    left: .85rem;
+  .type_title {
+    input[type=checkbox] {
+      left: .85rem;
+    }
+    label {
+      font-size: 0.867rem;
+    }
   }
 
   .shopping_car_container {
@@ -313,6 +318,7 @@
               height: 2rem;
               width: 6.933rem;
               border: 1px solid #e5e5e5;
+              font-size: 0.933rem;
               input {
                 flex: 1;
                 height: 100%;
@@ -337,7 +343,8 @@
 
     /*全选 结算 Start*/
     .settle_accounts {
-      position: fixed;
+      position: absolute;
+      /*position: fixed;*/
       width: 100%;
       left: 0;
       bottom: 4rem;
@@ -369,6 +376,7 @@
         line-height: 3.333rem;
         height: 3.333rem;
         border-radius: 0;
+        font-size: 1rem;
         &.active {
           background-color: #ffcb57;
           color: #472d22;

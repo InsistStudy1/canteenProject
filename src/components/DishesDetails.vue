@@ -7,15 +7,28 @@
     <!-- 头部 End -->
 
     <!-- 商品信息 Start -->
+    <!--<div class="dishes-content">-->
+    <!--<img :src="goodInfo.images" alt="">-->
+    <!--<p class="title">{{ goodInfo.goodsname }}</p>-->
+    <!--<div class="order">-->
+    <!--<span>月售 {{ goodInfo.sold_num }} 份 </span>-->
+    <!--<span> 商品评分 {{ goodInfo.stars }}</span>-->
+    <!--</div>-->
+    <!--<div class="price-box">-->
+    <!--<p class="price"><span>￥</span>{{ goodInfo.price }}</p>-->
+    <!--<button @click="addShopCar"><i class="iconfont icon-jia"></i>加入购物车<span class="ball" ref="ball"></span></button>-->
+    <!--</div>-->
+    <!--</div>-->
     <div class="dishes-content">
-      <img :src="goodInfo.image" alt="">
-      <p class="title">{{ goodInfo.goodsname }}</p>
+      <img :src="'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2710064199,2180614330&fm=27&gp=0.jpg'"
+           alt="">
+      <p class="title">烧鸭饭</p>
       <div class="order">
-        <span>月售 {{ goodInfo.sold_num }} 份 </span>
-        <span> 商品评分 {{ goodInfo.stars }}</span>
+        <span>月售 10 份 </span>
+        <span> 商品评分 5.0</span>
       </div>
       <div class="price-box">
-        <p class="price"><span>￥</span>{{ goodInfo.price }}</p>
+        <p class="price"><span>￥</span>10</p>
         <button @click="addShopCar"><i class="iconfont icon-jia"></i>加入购物车<span class="ball" ref="ball"></span></button>
       </div>
     </div>
@@ -28,14 +41,26 @@
       </div>
     </div>
 
-    <div :class="['shopping-nav', {active: shopCarCount >= 1}]">
+    <!--<div :class="['shopping-nav', {active: shopCarCount >= 1}]">-->
+    <!--<router-link to="/shoppingcar" tag="p" class="icon-car" ref="shop_car">-->
+    <!--<i class="iconfont icon-gouwuche"></i>-->
+    <!--<span class="ball" ref="nowBallNum">{{ shopCarCount }}</span>-->
+    <!--</router-link>-->
+    <!--<div class="price-box">-->
+    <!--<p>{{ shopCarTotalPrice | currency('¥', 2) }}</p>-->
+    <!--<p v-show="shopCarCount >= 1">免配送费</p>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;<button>￥0起送</button>&ndash;&gt;-->
+    <!--<router-link to="/submitorder" tag="button">去结算</router-link>-->
+    <!--</div>-->
+    <div class="shopping-nav active" ref="shopping_nav">
       <router-link to="/shoppingcar" tag="p" class="icon-car" ref="shop_car">
         <i class="iconfont icon-gouwuche"></i>
-        <span class="ball" ref="nowBallNum">{{ shopCarCount }}</span>
+        <span class="ball" ref="nowBallNum">5</span>
       </router-link>
       <div class="price-box">
-        <p>{{ shopCarTotalPrice | currency('¥', 2) }}</p>
-        <p v-show="shopCarCount >= 1">免配送费</p>
+        <p>10</p>
+        <p>免配送费</p>
       </div>
       <!--<button>￥0起送</button>-->
       <router-link to="/submitorder" tag="button">去结算</router-link>
@@ -46,38 +71,47 @@
 <script>
     export default {
         data() {
-          return {
-              goodId: this.$route.params.id,
-              // 商品数据
-              goodInfo: {
-                  goodsname: '',
-                  stars: '',
-                  image: '',
-                  price: 0,
-                  sold_num: 0
-              },
-              user_id: window.CookieUtil.get('id')
-          }
+            return {
+                goodId: this.$route.params.id,
+                // 商品数据
+                goodInfo: {
+                    goodsname: '',
+                    stars: '',
+                    image: '',
+                    price: 0,
+                    sold_num: 0
+                },
+                user_id: window.CookieUtil.get('id')
+            }
         },
         created() {
-          this.getGoodInfo();
+            console.log(document.body.clientHeight);
+            this.getGoodInfo();
             this.$store.dispatch('updateShopCarInfo');
+        },
+        mounted() {
+            this.settingShoppingNav();
         },
         methods: {
             getGoodInfo() {
-              this.$fetch(this.api.getGoodInfo, { id: this.goodId }).then(res => {
-                  this.goodInfo.goodsname = res.goodsname;
-                  this.goodInfo.stars = res.stars;
-                  this.goodInfo.image = res.image;
-                  this.goodInfo.price = res.price;
-                  this.goodInfo.sold_num = res.sold_num;
-              })
+                this.$fetch(this.api.getGoodInfo, {id: this.goodId}).then(res => {
+                    this.goodInfo.goodsname = res.goodsname;
+                    this.goodInfo.stars = res.stars;
+                    this.goodInfo.image = res.image;
+                    this.goodInfo.price = res.price;
+                    this.goodInfo.sold_num = res.sold_num;
+                })
             },
             // 添加商品到购物车
             addShopCar() {
-              this.$post(this.api.addGoods, {user_id: this.user_id, goods_id: this.goodId}).then(res => {
-                  this.$store.dispatch('updateShopCarInfo');
-              })
+                this.$post(this.api.addGoods, {user_id: this.user_id, goods_id: this.goodId}).then(res => {
+                    this.$store.dispatch('updateShopCarInfo');
+                })
+            },
+
+            settingShoppingNav() {
+                let shopping_nav = this.$refs.shopping_nav;
+                shopping_nav.style.top = document.body.clientHeight - shopping_nav.offsetHeight + 'px';
             },
 
             addShopCarAnimation() {
@@ -112,7 +146,9 @@
 
 <style scoped lang="less">
   .dishesdetails-container {
+    position: relative;
     padding: 0 .66rem;
+    min-height: 100%;
     header {
       height: 3rem;
       a {
@@ -145,7 +181,7 @@
       .order {
         margin-top: .6rem;
         span {
-          font-size: 0.667rem;
+          font-size: 0.8rem;
           color: #818181;
         }
       }
@@ -214,13 +250,13 @@
 
     /* 购物栏 Start */
     .shopping-nav {
-      position: fixed;
+      position: absolute;
+      width: 100%;
       left: 0;
-      bottom: 0;
+      /*bottom: 0;*/
       height: 4rem;
       background-color: #5c5b5a;
-      z-index: 99999;
-      width: 100%;
+      z-index: 99;
       transition: all .5s ease;
       .icon-car {
         position: absolute;
@@ -261,6 +297,7 @@
       }
       button {
         position: absolute;
+        font-size: 1rem;
         right: 0;
         top: 0;
         width: 6.667rem;
@@ -277,19 +314,19 @@
             color: #fff;
           }
           /*&:after {*/
-            /*content: '1';*/
-            /*position: absolute;*/
-            /*right: -.6rem;*/
-            /*top: -.6rem;*/
-            /*width: 2rem;*/
-            /*height: 2rem;*/
-            /*line-height: 2rem;*/
-            /*font-size: 1.2rem;*/
-            /*text-align: center;*/
-            /*color: #fff;*/
-            /*background-color: #f0300a;*/
-            /*border-radius: 50%;*/
-            /*transform: scale(.6);*/
+          /*content: '1';*/
+          /*position: absolute;*/
+          /*right: -.6rem;*/
+          /*top: -.6rem;*/
+          /*width: 2rem;*/
+          /*height: 2rem;*/
+          /*line-height: 2rem;*/
+          /*font-size: 1.2rem;*/
+          /*text-align: center;*/
+          /*color: #fff;*/
+          /*background-color: #f0300a;*/
+          /*border-radius: 50%;*/
+          /*transform: scale(.6);*/
           /*}*/
           .ball {
             position: absolute;

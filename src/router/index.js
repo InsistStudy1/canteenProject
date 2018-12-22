@@ -11,16 +11,18 @@ import DishesDetails from '@/components/DishesDetails'  // 我的页面
 import Login from '@/components/user/Login'  // 登录
 import Register from '@/components/user/Register'  // 注册
 
-// 地址管理
-import HarvestAddress from '@/components/address/HarvestAddress'  // 收货地址
-import AddHarvestAddress from '@/components/address/AddHarvestAddress'  // 新增收货地址
-import EditHarvestAddress from '@/components/address/EditHarvestAddress'  // 修改收货地址
-
 // 订单
 import SubmitOrder from '@/components/order/SubmitOrder'  // 提交订单
 
 // 评论
 import Comment from '@/components/Comment'
+
+// 地址管理
+import HarvestAddress from '@/components/address/HarvestAddress'  // 收货地址
+import AddHarvestAddress from '@/components/address/AddHarvestAddress'  // 新增收货地址
+import EditHarvestAddress from '@/components/address/EditHarvestAddress'  // 修改收货地址
+
+import UpdateTel from '@/components/UpdateTel'  // 修改手机号
 
 
 
@@ -29,9 +31,9 @@ Vue.use(Router)
 export default new Router({
     routes: [
 
-        {path: '/',redirect: '/index'},
+        {path: '/', redirect: '/index'},
         // Tarbar 菜单栏
-        {path: '/index',name: 'Index',component: Index},
+        {path: '/index', name: 'Index', component: Index},
         {path: '/order', name: 'Order', component: Order},
         {path: '/shoppingcar', name: 'ShoppingCar', component: ShoppingCar},
         {path: '/information', name: 'Information', component: Information},
@@ -40,18 +42,21 @@ export default new Router({
         {path: '/login', name: 'Login', component: Login},
         {path: '/register', name: 'Register', component: Register},
 
+        // 菜品详情
+        {path: '/dishesdetails/:id', name: 'DishesDetails', component: DishesDetails},
+
+        // 提交订单
+        {path: '/submitorder', name: 'SubmitOrder', component: SubmitOrder},
+
+        //评论
+        {path: '/comment', name: 'Comment', component: Comment},
+
         // 地址管理
         {path: '/harvestaddress', name: 'HarvestAddress', component: HarvestAddress},
         {path: '/addharvestaddress', name: 'AddHarvestAddress', component: AddHarvestAddress},
         {path: '/editharvestaddress/:id', name: 'EditHarvestAddress', component: EditHarvestAddress},
 
-        // 菜品详情
-        {path: '/dishesdetails/:id',name: 'DishesDetails',component: DishesDetails},
-
-        // 提交订单
-        {path: '/submitorder',name: 'SubmitOrder',component: SubmitOrder},
-
-        //评论
-        {path: '/comment',name: 'Comment',component: Comment},
+        // 修改手机号码
+        {path: '/updatetel', name: 'UpdateTel', component: UpdateTel},
     ]
 })

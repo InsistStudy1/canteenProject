@@ -9,9 +9,8 @@
             <span>头像</span>
           </div>
           <div class="right">
-            <a href="#picture">
-              <img src="../assets/images/logo2.jpg" alt="">
-            </a>
+            <label for="avatar"><img src="../assets/images/logo2.jpg" alt=""></label>
+            <input type="file" id="avatar" accept="image/gif,image/jpeg,image/jpg,image/png" ref="avatarLoad" @change="uploadAvator($event)">
           </div>
           <i class="iconfont icon-xiangyou"></i>
         </div>
@@ -26,7 +25,7 @@
 
       <div class="items-list">
         <div class="items-title">账号绑定</div>
-        <div class="item">
+        <router-link tag="div" class="item" to="/updatetel">
           <div class="left">
             <i class="iconfont icon-phone_icon orange"></i>
             <span>手机</span>
@@ -36,7 +35,7 @@
             <span v-if="!tel" class="orange">未绑定</span>
           </div>
           <i class="iconfont icon-xiangyou"></i>
-        </div>
+        </router-link>
         <div class="item">
           <div class="left">
             <i class="iconfont icon-mail orange"></i>
@@ -70,7 +69,6 @@
         </div>
       </div>
 
-
       <div class="items-list logout" @click="logout">
         <div class="item">
           退出登录
@@ -78,23 +76,6 @@
       </div>
 
     </div>
-
-    <div id="picture" class="mui-popover mui-popover-action mui-popover-bottom">
-      <ul class="mui-table-view">
-        <li class="mui-table-view-cell">
-          <a href="#">拍照或录像</a>
-        </li>
-        <li class="mui-table-view-cell">
-          <a href="#">选取现有的</a>
-        </li>
-      </ul>
-      <ul class="mui-table-view">
-        <li class="mui-table-view-cell">
-          <a href="#picture"><b>取消</b></a>
-        </li>
-      </ul>
-    </div>
-
   </div>
 </template>
 
@@ -118,6 +99,7 @@
             this.$store.dispatch('updateShopCarInfo');
         },
         methods: {
+            // 登出
             logout() {
                 mui.confirm('退出登录后无法查看订单，请重新登录后查看?', '确定退出？', data => {
                     // 点击取消
@@ -128,12 +110,19 @@
                     this.$router.push('/login');
                 });
             },
+            // 获取默认地址
             getDefault() {
                 this.$fetch(this.api.getDefaultAddress, {user_id: this.user_id}).then(res => {
-                    if (!res) { return this.addressFlag = false}
+                    if (!res) {
+                        return this.addressFlag = false
+                    }
                     this.addressFlag = true;
                 })
             },
+            // 上传头像
+            uploadAvator(e) {
+                console.log(document.getElementById('avatar').files);
+            }
         }
     }
 </script>
@@ -157,6 +146,7 @@
         line-height: 1.767rem;
         color: #8b8b8b;
         background-color: #F7F7F7;
+        font-size: 0.8rem;
       }
       .item {
         position: relative;
@@ -191,6 +181,15 @@
       .head_portrait {
         height: 4.9rem;
         line-height: 4.9rem;
+        .right {
+          position: relative;
+          input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+          }
+        }
         img {
           width: 4rem;
           height: 4rem;

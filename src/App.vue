@@ -68,19 +68,19 @@
 
 <style lang="less">
   html, body {
-    min-height: 100%;
-    background-color: #F7F7F7;
+    height: 100%;
+    background-color: #F7F7F7!important;
     &.white {
-      background-color: #FFF;
+      background-color: #FFF!important;
     }
   }
-
   #app {
     font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-    margin-bottom: 50px;
+    padding-bottom: 3.96rem;
+    height: 100%;
   }
 
   .router-enter {
@@ -101,7 +101,8 @@
 
   .footer_tabbar {
     display: flex;
-    position: fixed;
+    /*position: fixed;*/
+    position: absolute;
     left: 0;
     width: 100%;
     bottom: 0;
@@ -119,6 +120,7 @@
       padding-top: .64rem;
       i {
         font-size: 1.742rem;
+        line-height: 1.8rem;
       }
       p {
         font-size: 0.88rem;

@@ -94,6 +94,7 @@
     import {mapState} from 'vuex';
     import CookieUtil from "../util/cookies";
 
+
     export default {
         data() {
             return {
@@ -129,36 +130,36 @@
                     {src: "", title: "秋天吃什么补气血"}
                 ],
                 foodList: [], // 菜品数据
-                loginFlag: false // 是否已登录
+                loginFlag: false, // 是否已登录
                 // foodRecommendList: [ //今日推荐数据测试数据
                 //     {
-                //         src: "http://img5.imgtn.bdimg.com/it/u=2516636342,875614527&fm=11&gp=0.jpg",
-                //         title: "肉沫茄子煲",
+                //         sml_image: "http://img5.imgtn.bdimg.com/it/u=2516636342,875614527&fm=11&gp=0.jpg",
+                //         goodsname: "肉沫茄子煲",
                 //         price: 12
                 //     },
                 //     {
-                //         src: "http://img5.imgtn.bdimg.com/it/u=2516636342,875614527&fm=11&gp=0.jpg",
-                //         title: "肉沫茄子煲",
+                //         sml_image: "http://img5.imgtn.bdimg.com/it/u=2516636342,875614527&fm=11&gp=0.jpg",
+                //         goodsname: "肉沫茄子煲",
                 //         price: 12
                 //     },
                 //     {
-                //         src: "http://img5.imgtn.bdimg.com/it/u=2516636342,875614527&fm=11&gp=0.jpg",
-                //         title: "肉沫茄子煲",
+                //         sml_image: "http://img5.imgtn.bdimg.com/it/u=2516636342,875614527&fm=11&gp=0.jpg",
+                //         goodsname: "肉沫茄子煲",
                 //         price: 12
                 //     },
                 //     {
-                //         src: "http://img5.imgtn.bdimg.com/it/u=2516636342,875614527&fm=11&gp=0.jpg",
-                //         title: "肉沫茄子煲",
+                //         sml_image: "http://img5.imgtn.bdimg.com/it/u=2516636342,875614527&fm=11&gp=0.jpg",
+                //         goodsname: "肉沫茄子煲",
                 //         price: 12
                 //     },
                 //     {
-                //         src: "http://img5.imgtn.bdimg.com/it/u=2516636342,875614527&fm=11&gp=0.jpg",
-                //         title: "肉沫茄子煲",
+                //         sml_image: "http://img5.imgtn.bdimg.com/it/u=2516636342,875614527&fm=11&gp=0.jpg",
+                //         goodsname: "肉沫茄子煲",
                 //         price: 12
                 //     },
                 //     {
-                //         src: "http://img5.imgtn.bdimg.com/it/u=2516636342,875614527&fm=11&gp=0.jpg",
-                //         title: "肉沫茄子煲",
+                //         sml_image: "http://img5.imgtn.bdimg.com/it/u=2516636342,875614527&fm=11&gp=0.jpg",
+                //         goodsname: "肉沫茄子煲",
                 //         price: 12
                 //     }
                 // ],
@@ -170,7 +171,7 @@
                 //         canteenType: "一饭二楼",
                 //         type: "一饭二楼",
                 //         price: "10",
-                //         "sold_num": 28
+                //         sold_num: 28
                 //     },
                 //     {
                 //         sml_image: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2710064199,2180614330&fm=27&gp=0.jpg",
@@ -178,7 +179,7 @@
                 //         canteenType: "一饭二楼",
                 //         type: "一饭二楼",
                 //         price: "10",
-                //         "sold_num": 28
+                //         sold_num: 28
                 //     },
                 //     {
                 //         sml_image: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2710064199,2180614330&fm=27&gp=0.jpg",
@@ -186,7 +187,7 @@
                 //         canteenType: "一饭二楼",
                 //         type: "一饭二楼",
                 //         price: "10",
-                //         "sold_num": 28
+                //         sold_num: 28
                 //     },
                 //     {
                 //         sml_image: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2710064199,2180614330&fm=27&gp=0.jpg",
@@ -194,7 +195,7 @@
                 //         canteenType: "一饭二楼",
                 //         type: "一饭二楼",
                 //         price: "10",
-                //         "sold_num": 28
+                //         sold_num: 28
                 //     }
                 // ]
             };
@@ -484,6 +485,7 @@
           height: 1.4rem;
           padding-left: .8rem;
           line-height: 1.4rem;
+          font-size: 0.733rem;
           color: #fff;
           background-color: rgba(0, 0, 0, .3);
         }

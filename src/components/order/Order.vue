@@ -206,6 +206,7 @@
           .price {
             flex: 1;
             height: 0.6rem;
+            font-size: 0.8rem;
             color: #010101;
             padding-right: 2px;
           }

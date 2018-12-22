@@ -26,3 +26,8 @@ a {color: #25a4bb;text-decoration: none;}
 .clearfix:after,.clearfix:before {content: '';display: table;}
 .clearfix:after {clear: both;}
 .clearfix {zoom: 1;}
+::-webkit-input-placeholder{ color: #ccc;	font-size: 0.8rem; }     /* 使用webkit内核的浏览器 */
+:-moz-placeholder{ color: #ccc;	font-size: 0.8rem; }                   /* Firefox版本4-18 */
+::-moz-placeholder{ color: #3ccc;font-size: 0.8rem; }                    /* Firefox版本19+ */
+:-ms-input-placeholder{ color: #3ccc;font-size: 0.8rem; }             /* IE浏览器 */
+* { touch-action: pan-y; }  /* mui中的滚动会在浏览器控制中报警告,需要添加一举样式代码*/
