@@ -3,7 +3,7 @@
 
     <a class="back mui-icon mui-icon-left-nav mui-pull-left" @click.prevent="$router.push('/index')">返回首页</a>
 
-    <img src="../../assets/images/logo_bg.png" alt="">
+    <img :src="require('assets/images/logo_bg.png')" alt="">
     <p class="title">账号密码登录</p>
     <form action="">
       <div :class="['input-item', { 'error': userNameFlag == 0 }]">
@@ -132,11 +132,13 @@
           margin-left: 1rem;
           color: #fcb84f;
           &.icon-ok {
+            top: 0;
             right: 13px;
             font-size: 1.5rem;
             color: forestgreen;
           }
           &.icon-chahao {
+            top: 0;
             right: 13px;
             font-size: 1.3rem;
             color: red;

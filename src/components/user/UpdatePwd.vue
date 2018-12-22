@@ -1,29 +1,15 @@
 <template>
-  <div class="logo_container">
+  <div class="updatepwd_container">
 
-    <a class="back mui-icon mui-icon-left-nav mui-pull-left" @click.prevent="$router.push('/login')">返回登录</a>
+    <a class="back mui-icon mui-icon-left-nav mui-pull-left" @click.prevent="$router.go(-1)">返回</a>
 
     <img :src="require('assets/images/logo_bg.png')" alt="">
-    <p class="title">注册</p>
+    <p class="title">修改密码</p>
     <form>
-      <div :class="['input-item', { 'error': userNameFlag == 0 }]">
-        <i class="iconfont icon-yonghu"></i>
-        <span class="line"></span>
-        <input type="text" placeholder="请输入用户名" v-model="userName" @blur="userNameVerify">
-        <i class="iconfont icon-ok" v-show="userNameFlag == 1"></i>
-        <i class="iconfont icon-chahao" v-show="userNameFlag == 0"></i>
-      </div>
-      <div :class="['input-item', { 'error': emailFlag == 0 }]">
-        <i class="iconfont icon-youxiang1"></i>
-        <span class="line"></span>
-        <input type="text" placeholder="请输入邮箱" v-model="email" @blur="emailVerify">
-        <i class="iconfont icon-ok" v-show="emailFlag == 1"></i>
-        <i class="iconfont icon-chahao" v-show="emailFlag == 0"></i>
-      </div>
       <div :class="['input-item', { 'error': pwdFlag == 0 }]">
         <i class="iconfont icon-password"></i>
         <span class="line"></span>
-        <input type="password" placeholder="请输入密码" v-model="password" @blur="passwordVerify">
+        <input type="password" placeholder="请输入原密码" v-model="password" @blur="passwordVerify">
         <i class="iconfont icon-ok" v-show="pwdFlag == 1"></i>
         <i class="iconfont icon-chahao" v-show="pwdFlag == 0"></i>
       </div>
@@ -34,7 +20,7 @@
         <i class="iconfont icon-ok" v-show="confirmPwdFlag == 1"></i>
         <i class="iconfont icon-chahao" v-show="confirmPwdFlag == 0"></i>
       </div>
-      <button @click="register">注册</button>
+      <button @click="updatePwd">确认修改</button>
     </form>
   </div>
 </template>
@@ -42,39 +28,15 @@
 <script>
 
     export default {
-        name: "Logo",
         data() {
             return {
-                userName: "",
-                email: "",
                 password: "",
                 confirmPwd: "",
-                userNameFlag: 3,
-                emailFlag: 3,
                 pwdFlag: 3,
                 confirmPwdFlag: 3
             }
         },
         methods: {
-            userNameVerify() {
-                if (this.userName == '') {
-                    mui.toast('用户名不能为空！', {duration: 1000, type: 'div'});
-                    this.userNameFlag = 0;
-                } else {
-                    this.userNameFlag = 1;
-                }
-            },
-            emailVerify() {
-                if (this.email == '') {
-                    mui.toast('邮箱不能为空！', {duration: 1000, type: 'div'});
-                    this.emailFlag = 0;
-                } else if (!myReg.email.test(this.email)) {
-                    mui.toast('邮箱格式错误！', {duration: 1000, type: 'div'});
-                    this.emailFlag = 0;
-                } else {
-                    this.emailFlag = 1;
-                }
-            },
             passwordVerify() {
                 this.confirmPwdFlag = 3;
                 if (this.password == '') {
@@ -100,23 +62,17 @@
                     this.confirmPwdFlag = 1;
                 }
             },
-            register() {
-                this.userNameVerify();
-                this.emailVerify();
+            updatePwd() {
                 this.passwordVerify();
                 this.confirmPasswordVerify();
-                if (this.userNameFlag === 1
-                    && this.emailFlag === 1
-                    && this.pwdFlag === 1
+                if (this.pwdFlag === 1
                     && this.confirmPwdFlag === 1) {
-                    this.$post(this.api.register, {
-                        username: this.userName,
-                        password: this.password,
-                        email: this.email
+                    this.$post(this.api.updatePwd, {
+                        user_id: this.user_id,
+                        password: this.password
                     }).then(response => {
-                        mui.alert('请5分钟内到自己的邮箱激活账号，否则账号销毁', '提示', () => {
-                            this.$router.push('/login');
-                        });
+                        mui.toast('修改成功');
+                        this.$router.push('/information');
                     }).catch(error => {
                         console.log(error);
                     })
@@ -129,7 +85,7 @@
 </script>
 
 <style scoped lang="less">
-  .logo_container {
+  .updatepwd_container {
     background-color: #fff;
     height: 100%;
 

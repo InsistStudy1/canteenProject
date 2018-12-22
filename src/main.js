@@ -4,20 +4,20 @@ import App from './App'
 import router from './router'
 
 // style
-import './assets/lib/MUI/css/mui.min.css'
-import './assets/style/reset.css';
-import './assets/style/border.css';
-import './assets/style/iconfont.css'
-import './assets/style/sz.less'
+import 'assets/lib/MUI/css/mui.min.css'
+import 'assets/style/reset.css';
+import 'assets/style/border.css';
+import 'assets/style/iconfont.css'
+import 'assets/style/sz.less'
 
 // script
 import store from './vuex/store'
 import {fetch, post, put, patch} from './util/http';
 import api from './api'
-import mui from './assets/lib/MUI/js/mui.min';
-import './assets/script/filter'
+import mui from 'assets/lib/MUI/js/mui.min';
+import 'assets/script/filter'
 import CookieUtil from './util/cookies'
-import myReg from './assets/script/RegExp'
+import myReg from 'assets/script/RegExp'
 
 // 导入 Mint-UI
 import MintUi from 'mint-ui';

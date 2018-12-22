@@ -22,7 +22,8 @@ import HarvestAddress from '@/components/address/HarvestAddress'  // 收货地�
 import AddHarvestAddress from '@/components/address/AddHarvestAddress'  // 新增收货地址
 import EditHarvestAddress from '@/components/address/EditHarvestAddress'  // 修改收货地址
 
-import UpdateTel from '@/components/UpdateTel'  // 修改手机号
+import UpdateTel from '@/components/user/UpdateTel'  // 修改手机号
+import UpdatePwd from '@/components/user/UpdatePwd'  // 修改密码
 
 
 
@@ -56,7 +57,7 @@ export default new Router({
         {path: '/addharvestaddress', name: 'AddHarvestAddress', component: AddHarvestAddress},
         {path: '/editharvestaddress/:id', name: 'EditHarvestAddress', component: EditHarvestAddress},
 
-        // 修改手机号码
-        {path: '/updatetel', name: 'UpdateTel', component: UpdateTel},
+        {path: '/updatetel', name: 'UpdateTel', component: UpdateTel},// 修改手机号码
+        {path: '/updatepwd', name: 'UpdatePwd', component: UpdatePwd},// 修改密码
     ]
 })

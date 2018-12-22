@@ -59,7 +59,7 @@
         </router-link>
       </div>
 
-      <div class="items-list">
+      <router-link tag="div" to="/updatepwd" class="items-list">
         <div class="items-title">安全设置</div>
         <div class="item">
           <div class="left">
@@ -67,7 +67,7 @@
           </div>
           <i class="iconfont icon-xiangyou"></i>
         </div>
-      </div>
+      </router-link>
 
       <div class="items-list logout" @click="logout">
         <div class="item">
@@ -135,7 +135,6 @@
   .bn {
     border: none !important;
   }
-
   .information-container {
     .items-list {
       border-top: 1px solid #e5e5e5;
