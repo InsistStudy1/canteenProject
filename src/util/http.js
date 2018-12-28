@@ -7,10 +7,10 @@ axios.defaults.timeout = 5000;
 // http request 拦截器
 axios.interceptors.request.use(
     config => {
-        // MintUi.Indicator.open({//打开loading
-        //     text: '加载中...',
-        //     spinnerType: 'fading-circle'
-        // });
+        MintUi.Indicator.open({//打开loading
+            text: '加载中...',
+            spinnerType: 'fading-circle'
+        });
         config.headers = {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -25,7 +25,7 @@ axios.interceptors.request.use(
 // http response 拦截器
 axios.interceptors.response.use(
     response => {
-        // MintUi.Indicator.close();//关闭loading
+        MintUi.Indicator.close();//关闭loading
         let res = response.data;
         let status = res.status;
         switch (status) {
@@ -36,7 +36,7 @@ axios.interceptors.response.use(
                 break;
             case 2:
                 router.push('/login');
-                mui.alert('请先登录', '提示')
+                return mui.alert('请先登录', '提示');
                 break;
             case 3:
                 mui.toast('邮箱未激活', {duration: 1000, type: 'div'});
@@ -50,7 +50,7 @@ axios.interceptors.response.use(
         }
     },
     error => {
-        // MintUi.Indicator.close();//关闭loading
+        MintUi.Indicator.close();//关闭loading
         mui.toast('未连接到服务器');
         return Promise.reject(error.response)
     }

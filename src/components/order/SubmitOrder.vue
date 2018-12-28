@@ -260,6 +260,7 @@
                 font-weight: 600;
                 right: 0;
                 bottom: 0;
+                font-size: 1rem;
               }
             }
           }

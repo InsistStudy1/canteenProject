@@ -30,7 +30,7 @@
             <div class="remark">
               <span class="status">待评价</span>
               <span class="price">{{ item.price * item.goods_num | currency('¥', 2) }}</span>
-              <button v-show="item.commit_state == 0">评价</button>
+              <router-link :to="'/comment/' + item.id" tag="button" v-show="item.commit_state == 0">评价</router-link>
             </div>
           </div>
         </div>
@@ -166,6 +166,7 @@
         box-shadow: 0 0 0.2rem 0 rgba(0, 0, 0, 0.08);
         border-radius: 0.167rem;
         padding: .7rem .667rem .5rem;
+        margin: 10px 0;
         img {
           width: 3rem;
           height: 3rem;

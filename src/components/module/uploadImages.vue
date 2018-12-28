@@ -60,7 +60,7 @@ export default {
         this.leftImages = this.maxImages - (this.imgUrls.length + e.target.files.length)
         this.pictureNums = String(this.maxImages - (this.imgUrls.length + e.target.files.length)) + '/' + String(this.maxImages)
       } else {
-        Toast('只能选择' + (this.maxImages - this.imgUrls.length) + '张了')
+        mui.toast('只能选择' + (this.maxImages - this.imgUrls.length) + '张了')
       }
     },
     delect (index) {

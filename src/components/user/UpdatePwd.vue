@@ -6,13 +6,22 @@
     <img :src="require('assets/images/logo_bg.png')" alt="">
     <p class="title">修改密码</p>
     <form>
-      <div :class="['input-item', { 'error': pwdFlag == 0 }]">
+      <div :class="['input-item', { 'error': oldPwdFlag == 0 }]">
         <i class="iconfont icon-password"></i>
         <span class="line"></span>
-        <input type="password" placeholder="请输入原密码" v-model="password" @blur="passwordVerify">
-        <i class="iconfont icon-ok" v-show="pwdFlag == 1"></i>
-        <i class="iconfont icon-chahao" v-show="pwdFlag == 0"></i>
+        <input type="password" placeholder="请输入原密码" v-model="oldPwd" @blur="passwordVerify(oldPwd, 'oldPwdFlag')">
+        <i class="iconfont icon-ok" v-show="oldPwdFlag == 1"></i>
+        <i class="iconfont icon-chahao" v-show="oldPwdFlag == 0"></i>
       </div>
+
+      <div :class="['input-item', { 'error': newPwdFlag == 0 }]">
+        <i class="iconfont icon-password"></i>
+        <span class="line"></span>
+        <input type="password" placeholder="请输入新密码" v-model="newPwd" @blur="passwordVerify(newPwd, 'newPwdFlag')">
+        <i class="iconfont icon-ok" v-show="newPwdFlag == 1"></i>
+        <i class="iconfont icon-chahao" v-show="newPwdFlag == 0"></i>
+      </div>
+
       <div :class="['input-item', { 'error': confirmPwdFlag == 0 }]">
         <i class="iconfont icon-password"></i>
         <span class="line"></span>
@@ -20,7 +29,7 @@
         <i class="iconfont icon-ok" v-show="confirmPwdFlag == 1"></i>
         <i class="iconfont icon-chahao" v-show="confirmPwdFlag == 0"></i>
       </div>
-      <button @click="updatePwd">确认修改</button>
+      <button @click="updatePwd" @keyup.enter="updatePwd">确认修改</button>
     </form>
   </div>
 </template>
@@ -30,24 +39,27 @@
     export default {
         data() {
             return {
-                password: "",
+                oldPwd: "",
+                newPwd: "",
                 confirmPwd: "",
-                pwdFlag: 3,
-                confirmPwdFlag: 3
+                oldPwdFlag: 3,
+                newPwdFlag: 3,
+                confirmPwdFlag: 3,
+                user_id: window.CookieUtil.get('id')
             }
         },
         methods: {
-            passwordVerify() {
+            passwordVerify(val, flag) {
                 this.confirmPwdFlag = 3;
-                if (this.password == '') {
+                console.log(flag);
+                if (val == '') {
                     mui.toast('密码不能为空！', {duration: 1000, type: 'div'});
-                    this.pwdFlag = 0;
-                    this.confirmPwd = "";
-                } else if (this.password.length < 6 || this.password.length > 20) {
+                    this[flag] = 0;
+                } else if (val.length < 6 || val.length > 20) {
                     mui.toast('密码6位到20位数！', {duration: 1000, type: 'div'});
-                    this.pwdFlag = 0;
+                    this[flag] = 0;
                 } else {
-                    this.pwdFlag = 1;
+                    this[flag] = 1;
                 }
             },
             confirmPasswordVerify() {
@@ -55,7 +67,7 @@
                     mui.toast('确认密码不能为空！', {duration: 1000, type: 'div'});
                     this.confirmPwdFlag = 0;
                 }
-                if (this.password !== this.confirmPwd) {
+                if (this.newPwd !== this.confirmPwd) {
                     mui.toast('两次输入密码不一致！', {duration: 1000, type: 'div'});
                     this.confirmPwdFlag = 0;
                 } else {
@@ -63,16 +75,28 @@
                 }
             },
             updatePwd() {
-                this.passwordVerify();
+                this.passwordVerify(this.oldPwd, 'oldPwdFlag');
+                this.passwordVerify(this.newPwd, 'newPwdFlag');
                 this.confirmPasswordVerify();
-                if (this.pwdFlag === 1
+                if (this.oldPwdFlag === 1
                     && this.confirmPwdFlag === 1) {
                     this.$post(this.api.updatePwd, {
                         user_id: this.user_id,
-                        password: this.password
+                        oldCode: this.oldPwd,
+                        code: this.newPwd
                     }).then(response => {
-                        mui.toast('修改成功');
-                        this.$router.push('/information');
+                        if (response.check) {
+                            mui.toast('修改成功');
+                            this.$router.push('/information');
+                        } else {
+                            mui.toast('原密码错误');
+                            this.oldPwd = '';
+                            this.newPwd = '';
+                            this.confirmPwd = '';
+                            this.oldPwdFlag = 0;
+                            this.newPwdFlag = 3;
+                            this.confirmPwdFlag = 3;
+                        }
                     }).catch(error => {
                         console.log(error);
                     })
@@ -117,6 +141,7 @@
           position: absolute;
           line-height: 3rem;
           margin-left: 1rem;
+          font-size: 1rem;
           color: #fcb84f;
           &.icon-ok {
             top: 0;
@@ -142,6 +167,7 @@
         input {
           width: 21rem;
           height: 2rem;
+          font-size: 1rem;
           margin: .5rem 1rem .5rem 4.06rem;
           line-height: 2rem;
           padding: 0;

@@ -17,7 +17,7 @@
       <router-link to="shoppingcar" tag="div" class="item">
         <i class="iconfont icon-gouwuche"></i>
         <p>购物车</p>
-        <span class="count">{{ shopCarAllCount }}</span>
+        <span class="count" v-show="shopCarAllCount>=1">{{ shopCarAllCount }}</span>
       </router-link>
       <router-link to="information" tag="div" class="item">
         <i class="iconfont icon-wode"></i>
@@ -101,8 +101,8 @@
 
   .footer_tabbar {
     display: flex;
-    /*position: fixed;*/
-    position: absolute;
+    position: fixed;
+    /*position: absolute;*/
     left: 0;
     width: 100%;
     bottom: 0;

@@ -9,8 +9,9 @@
             <span>头像</span>
           </div>
           <div class="right">
-            <label for="avatar"><img src="../assets/images/logo2.jpg" alt=""></label>
-            <input type="file" id="avatar" accept="image/gif,image/jpeg,image/jpg,image/png" ref="avatarLoad" @change="uploadAvator($event)">
+            <label for="avatar"><img :src="avatarSrc" alt=""></label>
+            <input type="file" id="avatar" accept="image/gif,image/jpeg,image/jpg,image/png" ref="avatarLoad"
+                   @change="uploadAvatar($event)">
           </div>
           <i class="iconfont icon-xiangyou"></i>
         </div>
@@ -25,7 +26,7 @@
 
       <div class="items-list">
         <div class="items-title">账号绑定</div>
-        <router-link tag="div" class="item" to="/updatetel">
+        <router-link tag="div" class="item" :to="'/updatetel/' + this.tel">
           <div class="left">
             <i class="iconfont icon-phone_icon orange"></i>
             <span>手机</span>
@@ -80,7 +81,7 @@
 </template>
 
 <script>
-    import CookieUtil from "../util/cookies";
+    import axios from "axios";
 
     export default {
         data() {
@@ -90,11 +91,12 @@
                 addressFlag: false,
                 userName: window.CookieUtil.get('username'),
                 email: window.CookieUtil.get('email'),
-                user_id: window.CookieUtil.get('id')
+                user_id: window.CookieUtil.get('id'),
+                avatarSrc: ''
             }
         },
         created() {
-            this.getDefault();
+            this.getInfo();
             // 更新购物车信息
             this.$store.dispatch('updateShopCarInfo');
         },
@@ -110,18 +112,28 @@
                     this.$router.push('/login');
                 });
             },
-            // 获取默认地址
-            getDefault() {
-                this.$fetch(this.api.getDefaultAddress, {user_id: this.user_id}).then(res => {
-                    if (!res) {
-                        return this.addressFlag = false
-                    }
-                    this.addressFlag = true;
+            // 获取手机号码和默认地址
+            getInfo() {
+                this.$fetch(this.api.getInfo, {user_id: this.user_id}).then(res => {
+                    this.addressFlag = res.addressflag;
+                    this.tel = res.tel;
+                    this.avatarSrc = res.avatar;
                 })
             },
             // 上传头像
-            uploadAvator(e) {
-                console.log(document.getElementById('avatar').files);
+            uploadAvatar(e) {
+                let file = e.target.files;
+                if (!file[0]) return;
+                // 用来存储二进制的对象
+                let formDate = new FormData();
+                formDate.append('avatar', file[0]);
+                formDate.append('user_id', this.user_id);
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST',this.api.editImage);
+                xhr.send(formDate);
+                xhr.onload = ()=> {
+                    this.avatarSrc = JSON.parse(xhr.responseText).path;
+                }
             }
         }
     }
@@ -135,6 +147,7 @@
   .bn {
     border: none !important;
   }
+
   .information-container {
     .items-list {
       border-top: 1px solid #e5e5e5;

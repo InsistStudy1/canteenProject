@@ -147,6 +147,7 @@
         background-color: #fcb84f;
         border-radius: 1.467rem;
         color: #fff;
+        font-size: 1rem;
       }
     }
 

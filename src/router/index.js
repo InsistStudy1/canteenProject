@@ -50,7 +50,7 @@ export default new Router({
         {path: '/submitorder', name: 'SubmitOrder', component: SubmitOrder},
 
         //评论
-        {path: '/comment', name: 'Comment', component: Comment},
+        {path: '/comment/:id', name: 'Comment', component: Comment},
 
         // 地址管理
         {path: '/harvestaddress', name: 'HarvestAddress', component: HarvestAddress},
@@ -58,6 +58,7 @@ export default new Router({
         {path: '/editharvestaddress/:id', name: 'EditHarvestAddress', component: EditHarvestAddress},
 
         {path: '/updatetel', name: 'UpdateTel', component: UpdateTel},// 修改手机号码
+        {path: '/updatetel/:tel', name: 'UpdateTel', component: UpdateTel},// 修改手机号码
         {path: '/updatepwd', name: 'UpdatePwd', component: UpdatePwd},// 修改密码
     ]
 })

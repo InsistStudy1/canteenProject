@@ -41,6 +41,8 @@
 
 <script>
 
+    import myReg from "../../assets/script/RegExp";
+
     export default {
         name: "Logo",
         data() {
@@ -57,6 +59,7 @@
         },
         methods: {
             userNameVerify() {
+                this.userName = this.userName.trim();
                 if (this.userName == '') {
                     mui.toast('用户名不能为空！', {duration: 1000, type: 'div'});
                     this.userNameFlag = 0;
@@ -65,6 +68,7 @@
                 }
             },
             emailVerify() {
+                this.email = this.email.trim();
                 if (this.email == '') {
                     mui.toast('邮箱不能为空！', {duration: 1000, type: 'div'});
                     this.emailFlag = 0;
@@ -76,6 +80,7 @@
                 }
             },
             passwordVerify() {
+                this.password = this.password.trim();
                 this.confirmPwdFlag = 3;
                 if (this.password == '') {
                     mui.toast('密码不能为空！', {duration: 1000, type: 'div'});
@@ -114,9 +119,12 @@
                         password: this.password,
                         email: this.email
                     }).then(response => {
-                        mui.alert('请5分钟内到自己的邮箱激活账号，否则账号销毁', '提示', () => {
-                            this.$router.push('/login');
-                        });
+                        console.log(response);
+                        if (response.msg == 'success') {
+                            mui.alert('请5分钟内到自己的邮箱激活账号，否则账号销毁', '提示', () => {
+                                this.$router.push('/login');
+                            });
+                        }
                     }).catch(error => {
                         console.log(error);
                     })
@@ -162,6 +170,7 @@
           line-height: 3rem;
           margin-left: 1rem;
           color: #fcb84f;
+          font-size: 1rem;
           &.icon-ok {
             top: 0;
             right: 13px;
@@ -174,6 +183,7 @@
             font-size: 1.3rem;
             color: red;
           }
+
         }
         .line {
           position: absolute;
@@ -184,6 +194,7 @@
           background-color: #eaeaea;
         }
         input {
+          font-size: 1rem;
           width: 21rem;
           height: 2rem;
           margin: .5rem 1rem .5rem 4.06rem;

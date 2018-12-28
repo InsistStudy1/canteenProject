@@ -36,8 +36,9 @@
             getAddressList() {
                 this.$fetch(this.api.showAllAddress, {user_id: this.user_id}).then(res => {
                     this.addressList = res;
+                    console.log(this.addressList.length);
                     // 如果只有一个地址并且不是默认地址，设置为默认地址
-                    if (this.addressList.length == 1 && this.addressList.is_default == '0'){
+                    if (this.addressList.length == 1){
                         this.settingDefault(this.addressList[0].id);
                     }
                 })

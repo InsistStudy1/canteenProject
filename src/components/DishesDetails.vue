@@ -7,28 +7,15 @@
     <!-- 头部 End -->
 
     <!-- 商品信息 Start -->
-    <!--<div class="dishes-content">-->
-    <!--<img :src="goodInfo.images" alt="">-->
-    <!--<p class="title">{{ goodInfo.goodsname }}</p>-->
-    <!--<div class="order">-->
-    <!--<span>月售 {{ goodInfo.sold_num }} 份 </span>-->
-    <!--<span> 商品评分 {{ goodInfo.stars }}</span>-->
-    <!--</div>-->
-    <!--<div class="price-box">-->
-    <!--<p class="price"><span>￥</span>{{ goodInfo.price }}</p>-->
-    <!--<button @click="addShopCar"><i class="iconfont icon-jia"></i>加入购物车<span class="ball" ref="ball"></span></button>-->
-    <!--</div>-->
-    <!--</div>-->
     <div class="dishes-content">
-      <img :src="'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2710064199,2180614330&fm=27&gp=0.jpg'"
-           alt="">
-      <p class="title">烧鸭饭</p>
+      <img :src="goodInfo.image" alt="">
+      <p class="title">{{ goodInfo.goodsname }}</p>
       <div class="order">
-        <span>月售 10 份 </span>
-        <span> 商品评分 5.0</span>
+        <span>月售 {{ goodInfo.sold_num }} 份 </span>
+        <span> 商品评分 {{ goodInfo.stars }}</span>
       </div>
       <div class="price-box">
-        <p class="price"><span>￥</span>10</p>
+        <p class="price"><span>￥</span>{{ goodInfo.price }}</p>
         <button @click="addShopCar"><i class="iconfont icon-jia"></i>加入购物车<span class="ball" ref="ball"></span></button>
       </div>
     </div>
@@ -41,26 +28,14 @@
       </div>
     </div>
 
-    <!--<div :class="['shopping-nav', {active: shopCarCount >= 1}]">-->
-    <!--<router-link to="/shoppingcar" tag="p" class="icon-car" ref="shop_car">-->
-    <!--<i class="iconfont icon-gouwuche"></i>-->
-    <!--<span class="ball" ref="nowBallNum">{{ shopCarCount }}</span>-->
-    <!--</router-link>-->
-    <!--<div class="price-box">-->
-    <!--<p>{{ shopCarTotalPrice | currency('¥', 2) }}</p>-->
-    <!--<p v-show="shopCarCount >= 1">免配送费</p>-->
-    <!--</div>-->
-    <!--&lt;!&ndash;<button>￥0起送</button>&ndash;&gt;-->
-    <!--<router-link to="/submitorder" tag="button">去结算</router-link>-->
-    <!--</div>-->
-    <div class="shopping-nav active" ref="shopping_nav">
+    <div :class="['shopping-nav', {active: shopCarCount >= 1}]">
       <router-link to="/shoppingcar" tag="p" class="icon-car" ref="shop_car">
         <i class="iconfont icon-gouwuche"></i>
-        <span class="ball" ref="nowBallNum">5</span>
+        <span class="ball" ref="nowBallNum" :class="{'hide': shopCarCount == 0}">{{ shopCarCount }}</span>
       </router-link>
       <div class="price-box">
-        <p>10</p>
-        <p>免配送费</p>
+        <p>{{ shopCarTotalPrice | currency('¥', 2) }}</p>
+        <p v-show="shopCarCount >= 1">免配送费</p>
       </div>
       <!--<button>￥0起送</button>-->
       <router-link to="/submitorder" tag="button">去结算</router-link>
@@ -250,10 +225,11 @@
 
     /* 购物栏 Start */
     .shopping-nav {
-      position: absolute;
+      position: fixed;
+      /*position: absolute;*/
       width: 100%;
       left: 0;
-      /*bottom: 0;*/
+      bottom: 0;
       height: 4rem;
       background-color: #5c5b5a;
       z-index: 99;
@@ -274,6 +250,9 @@
           top: 50%;
           transform: translate(-50%, -50%);
           font-size: 1.6rem;
+        }
+        span.hide {
+          opacity: 0;
         }
       }
       .price-box {

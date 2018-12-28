@@ -16,7 +16,7 @@
       <div :class="['input-item', { 'error': pwdFlag == 0 }]">
         <i class="iconfont icon-password"></i>
         <span class="line"></span>
-        <input type="password" placeholder="请输入密码" v-model="password" @blur="passwordVerify">
+        <input type="password" placeholder="请输入密码" v-model="password" @blur="passwordVerify" @keyup.enter="login">
         <i class="iconfont icon-ok" v-show="pwdFlag == 1"></i>
         <i class="iconfont icon-chahao" v-show="pwdFlag == 0"></i>
       </div>
@@ -83,7 +83,7 @@
             },
             // 更新购物车信息
             getShopCarInfo() {
-                this.$store.dispatch('updateShopCarInfo');
+                // this.$store.dispatch('updateShopCarInfo');
             }
         },
         computed: {
@@ -131,6 +131,7 @@
           line-height: 3rem;
           margin-left: 1rem;
           color: #fcb84f;
+          font-size: 1rem;
           &.icon-ok {
             top: 0;
             right: 13px;
@@ -155,6 +156,7 @@
         input {
           width: 21rem;
           height: 2rem;
+          font-size: 1rem;
           margin: .5rem 1rem .5rem 4.06rem;
           line-height: 2rem;
           padding: 0;
