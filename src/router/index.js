@@ -50,7 +50,7 @@ export default new Router({
         {path: '/submitorder', name: 'SubmitOrder', component: SubmitOrder},
 
         //评论
-        {path: '/comment/:id', name: 'Comment', component: Comment},
+        {path: '/comment/:id/:goods_id', name: 'Comment', component: Comment},
 
         // 地址管理
         {path: '/harvestaddress', name: 'HarvestAddress', component: HarvestAddress},

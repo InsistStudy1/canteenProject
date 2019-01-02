@@ -37,5 +37,8 @@ const api = {
     // 订单功能
     makeOrders: `${version}/Order/MakeOrders`, // 提交订单
     getOrderList: `${version}/Order/ShowOrder`, // 获取订单列表
+    // 评论
+    insertComment: `${version}/Comment/InsertComment`, // 插入评论信息
+    getCommentList: `${version}/Comment/getCommentLists`, // 获取评论信息
 }
 module.exports = api;

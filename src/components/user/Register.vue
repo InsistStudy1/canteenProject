@@ -40,7 +40,6 @@
 </template>
 
 <script>
-
     import myReg from "../../assets/script/RegExp";
 
     export default {

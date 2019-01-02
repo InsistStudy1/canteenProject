@@ -42,7 +42,6 @@
     var starOnImg = 'static/images/star@2x.png';
 
 
-    console.log(starOffImg);
     export default {
         data: function () {
             return {
@@ -51,7 +50,10 @@
                 Surplus: 140,
                 newTitle: '商品评价',
                 scoreStartNum: 5, // 商品评分
-                severStartNum: 5, // 服务评分
+                foodStartNum: 5, // 服务评分
+                user_id: window.CookieUtil.get('id'),
+                order_id: this.$route.params.id,
+                goods_id: this.$route.params.goods_id,
                 imgList: [],
                 stars: [{
                     src: starOnImg,
@@ -92,6 +94,8 @@
         },
         components: {
             'up-Load': uploadImages
+        },
+        created() {
         },
         methods: {
             // 评分
@@ -156,15 +160,15 @@
                     var total = this.severceStarts.length // 星星总数
                     var idx = index + 1 // 这代表选的第idx颗星-也代表应该显示的星星数量
                     // 进入if说明页面为初始状态
-                    if (this.severStartNum == 0) {
-                        this.severStartNum = idx
+                    if (this.foodStartNum == 0) {
+                        this.foodStartNum = idx
                         for (var i = 0; i < idx; i++) {
                             this.severceStarts[i].src = starOnImg
                             this.severceStarts[i].active = true
                         }
                     } else {
                         // 如果再次点击当前选中的星级-仅取消掉当前星级，保留之前的。
-                        if (idx === this.severStartNum) {
+                        if (idx === this.foodStartNum) {
                             for (var i = index; i < total; i++) {
                                 if (i != 0) {
                                     this.severceStarts[i].src = starOffImg
@@ -173,8 +177,8 @@
                             }
                         }
                         // 如果小于当前最高星级，则直接保留当前星级
-                        if (idx < this.severStartNum) {
-                            for (var i = idx; i < this.severStartNum; i++) {
+                        if (idx < this.foodStartNum) {
+                            for (var i = idx; i < this.foodStartNum; i++) {
                                 if (i != 0) {
                                     this.severceStarts[i].src = starOffImg
                                     this.severceStarts[i].active = false
@@ -182,7 +186,7 @@
                             }
                         }
                         // 如果大于当前星级，则直接选到该星级
-                        if (idx > this.severStartNum) {
+                        if (idx > this.foodStartNum) {
                             for (var i = 0; i < idx; i++) {
                                 this.severceStarts[i].src = starOnImg
                                 this.severceStarts[i].active = true
@@ -195,7 +199,7 @@
                                 count++
                             }
                         }
-                        this.severStartNum = count
+                        this.foodStartNum = count
                     }
                 }
             },
@@ -209,14 +213,19 @@
             },
             // 发布评论
             publicComment () {
-                console.log(this.scoreStartNum);
-                console.log(this.severStartNum);
-                console.log(this.inputText);
-                console.log(this.imgList);
-
+                this.$post(this.api.insertComment, {
+                    user_id: this.user_id,
+                    order_id: this.order_id,
+                    goods_id: this.goods_id,
+                    content: this.inputText,
+                    foodStar: this.foodStartNum,
+                    imgList: this.imgList
+                }).then(res => {
+                    this.$router.push('/order');
+                    mui.toast('评论成功', {duration: 1000, type: 'div'});
+                })
             }
-        },
-        name: 'gotoComment'
+        }
     }
 </script>
 

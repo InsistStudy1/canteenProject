@@ -52,7 +52,7 @@ export default {
           let that = this;
           reader.readAsDataURL(file);
           reader.onload = function (e) {
-            that.imgUrls.push(this.result)
+              that.imgUrls.push(this.result)
           }
           this.$emit('getImgList', that.imgUrls);
         }

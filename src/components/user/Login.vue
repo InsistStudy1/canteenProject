@@ -16,7 +16,7 @@
       <div :class="['input-item', { 'error': pwdFlag == 0 }]">
         <i class="iconfont icon-password"></i>
         <span class="line"></span>
-        <input type="password" placeholder="请输入密码" v-model="password" @blur="passwordVerify" @keyup.enter="login">
+        <input type="password" placeholder="请输入密码" v-model="password" @blur="passwordVerify">
         <i class="iconfont icon-ok" v-show="pwdFlag == 1"></i>
         <i class="iconfont icon-chahao" v-show="pwdFlag == 0"></i>
       </div>

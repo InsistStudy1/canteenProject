@@ -21,10 +21,41 @@
     </div>
     <!-- 商品信息 End -->
 
-    <div class="commit-box">
-      <h2 class="title">外卖评价</h2>
-      <div class="content">
-        <h4 class="not_have">暂无</h4>
+    <div class="comment-container">
+      <!--<div class="no_available">-->
+      <!--<h2 class="title">外卖评价</h2>-->
+      <!--<div class="content">-->
+      <!--<h4 class="not_have">暂无</h4>-->
+      <!--</div>-->
+      <!--</div>-->
+
+      <div class="comment-item" v-for="item in commentList">
+        <div class="avatar">
+          <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3841743209,952064471&fm=27&gp=0.jpg"
+               alt="">
+        </div>
+        <div class="detail">
+          <p class="username">{{ item.username }}</p>
+          <div class="grade-box">
+            <div class="score">评分</div>
+            <div class="bgImg">
+              <img v-for="item in star" v-if="item == 1" src="static/images/star@2x.png" alt="星星图片"/>
+              <img v-for="item in star" v-if="item == 0" src="static/images/star02@2x.png" alt="星星图片"/>
+            </div>
+          </div>
+          <p class="content">还可以，没有那么油腻，味道也刚刚好，值得购买。</p>
+          <div class="img-box">
+            <div class="img-item">
+              <img src="http://192.168.43.136/Project/Application/Admin/Public/Upload/2018-12-18/5c18dfa881206.jpg"
+                   alt="">
+            </div>
+            <div class="img-item">
+              <img src="http://192.168.43.136/Project/Application/Admin/Public/Upload/2018-12-18/5c18dfa881206.jpg"
+                   alt="">
+            </div>
+          </div>
+        </div>
+        <p class="time">2017.07.06</p>
       </div>
     </div>
 
@@ -44,10 +75,12 @@
 </template>
 
 <script>
+    let starOffImg = 'static/images/star02@2x.png';
+    let starOnImg = 'static/images/star@2x.png';
     export default {
         data() {
             return {
-                goodId: this.$route.params.id,
+                goods_id: this.$route.params.id,
                 // 商品数据
                 goodInfo: {
                     goodsname: '',
@@ -56,20 +89,23 @@
                     price: 0,
                     sold_num: 0
                 },
-                user_id: window.CookieUtil.get('id')
+                star: [1, 1, 1, 0, 0],
+                user_id: window.CookieUtil.get('id'),
+                commentList: []
             }
         },
         created() {
-            console.log(document.body.clientHeight);
             this.getGoodInfo();
             this.$store.dispatch('updateShopCarInfo');
+            // this.getCommentList();
         },
         mounted() {
-            this.settingShoppingNav();
+            // this.settingShoppingNav();
         },
         methods: {
+            // 获取商品信息
             getGoodInfo() {
-                this.$fetch(this.api.getGoodInfo, {id: this.goodId}).then(res => {
+                this.$fetch(this.api.getGoodInfo, {id: this.goods_id}).then(res => {
                     this.goodInfo.goodsname = res.goodsname;
                     this.goodInfo.stars = res.stars;
                     this.goodInfo.image = res.image;
@@ -79,7 +115,7 @@
             },
             // 添加商品到购物车
             addShopCar() {
-                this.$post(this.api.addGoods, {user_id: this.user_id, goods_id: this.goodId}).then(res => {
+                this.$post(this.api.addGoods, {user_id: this.user_id, goods_id: this.goods_id}).then(res => {
                     this.$store.dispatch('updateShopCarInfo');
                 })
             },
@@ -87,6 +123,12 @@
             settingShoppingNav() {
                 let shopping_nav = this.$refs.shopping_nav;
                 shopping_nav.style.top = document.body.clientHeight - shopping_nav.offsetHeight + 'px';
+            },
+            //获取评论信息
+            getCommentList() {
+                this.$fetch(this.api.getCommentList, {goods_id: this.goods_id}).then(res => {
+                    this.commentList = res;
+                })
             },
 
             addShopCarAnimation() {
@@ -206,18 +248,101 @@
     /* 商品信息 End */
 
     /* 外卖评价 Start */
-    .commit-box {
-      .title {
-        font-size: 1.267rem;
-        color: #333;
-        line-height: 3rem;
-        font-weight: 600;
+    .comment-container {
+      margin-top: 2rem;
+      /* 暂无评论 */
+      .no_available {
+        .title {
+          font-size: 1.267rem;
+          color: #333;
+          line-height: 3rem;
+          font-weight: 600;
+        }
+        .content {
+          .not_have {
+            height: 0.967rem;
+            font-size: 0.933rem;
+            color: #818181;
+          }
+        }
       }
-      .content {
-        .not_have {
-          height: 0.967rem;
-          font-size: 0.933rem;
-          color: #818181;
+
+      /* 评论 */
+      .comment-item {
+        position: relative;
+        margin-left: 1rem;
+        margin-right: .633rem;
+        margin-bottom: .5rem;
+        padding-left: 3rem;
+        .avatar {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 2.2rem;
+          height: 2.2rem;
+          border-radius: 50%;
+          overflow: hidden;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .detail {
+          .username {
+            font-size: 0.9rem;
+            line-height: 2rem;
+            color: #060606;
+          }
+          .grade-box {
+            display: flex;
+            font-size: 0.7rem;
+            line-height: 1.3rem;
+            color: #858483;
+            .score{
+              padding-top: 2px;
+              color: #333333;
+              height: 1.03125rem;
+              line-height: 1.03125rem;
+              font-size: .875rem;
+            }
+            .bgImg {
+              flex: 1;
+              display: flex;
+              margin-left: 5px;
+              img {
+                margin-left: 5px;
+                width: 1.09375rem;
+                height: 1.03125rem;
+              }
+            }
+          }
+          .content {
+            margin-top: .5rem;
+            font-size: 0.7rem;
+            line-height: 1.3rem;
+            color: #0d0c0c;
+          }
+        }
+        .img-box {
+          display: flex;
+          flex-wrap: wrap;
+          margin: .5rem 0;
+          .img-item {
+            width: 32%;
+            padding-right: .5rem;
+            padding-bottom: .5rem;
+            img {
+            width: 100%;
+            height: 100%;
+            }
+          }
+        }
+        .time {
+          position: absolute;
+          right: 0;
+          top: .5rem;
+          font-size: .7rem;
+          color: #777;
         }
       }
     }

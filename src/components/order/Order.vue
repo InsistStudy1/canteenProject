@@ -21,16 +21,17 @@
       <div class="tab-container-item">
         <div class="all_orders_list">
           <div class="item" v-for="item in orderList" :key="item.id">
-            <img v-lazy="item.image" alt="">
+            <router-link tag="img" :to="'/dishesdetails/' + item.id" v-lazy="item.image" alt=""></router-link>
             <div class="info">
               <h2>{{ item.name }} </h2>
               <p class="time">{{ item.create_time | timeFormat }}</p>
               <p class="foodname">{{ item.goods_name }}（{{ item.type_name }}）   {{ item.goods_num }} 件</p>
             </div>
             <div class="remark">
-              <span class="status">待评价</span>
+              <span class="status" v-show="item.commit_state == 0">待评价</span>
+              <span class="status" v-show="item.commit_state == 1">已评价</span>
               <span class="price">{{ item.price * item.goods_num | currency('¥', 2) }}</span>
-              <router-link :to="'/comment/' + item.id" tag="button" v-show="item.commit_state == 0">评价</router-link>
+              <router-link :to="'/comment/' + item.id + '/' + item.goods_id" tag="button" v-show="item.commit_state == 0">评价</router-link>
             </div>
           </div>
         </div>
